@@ -416,6 +416,8 @@ class DragAndDropBlock(
         self.item_background_color = submissions['item_background_color']
         self.item_text_color = submissions['item_text_color']
         self.max_items_per_zone = self._get_max_items_per_zone(submissions)
+        self.show_attempts = submissions['show_attempts']
+        self.show_graded = submissions['show_graded']
         self.data = submissions['data']
 
         return {
