@@ -324,9 +324,13 @@ function DragAndDropTemplates(configuration) {
         if (ctx.max_attempts && ctx.max_attempts > 0) {
             var attemptsUsedId = "attempts-used-" + configuration.url_name;
             submitButtonProperties.attributes["aria-describedby"] = attemptsUsedId;
-            var attemptsUsedTemplate = gettext("You have used {used} of {total} attempts.");
-            var attemptsUsedText = attemptsUsedTemplate.
-                replace("{used}", ctx.attempts).replace("{total}", ctx.max_attempts);
+            var attemptsUsedTemplate = '';
+            var attemptsUsedText = '';
+            if (ctx.show_attempts || (!ctx.show_attempts && ctx.attempts == ctx.max_attempts)) {
+                attemptsUsedTemplate = gettext("You have used {used} of {total} attempts.");
+                attemptsUsedText = attemptsUsedTemplate.replace("{used}", ctx.attempts).replace("{total}", ctx.max_attempts);
+            }
+
             attemptsUsedInfo = h("span.attempts-used", {id: attemptsUsedId}, attemptsUsedText);
         }
 
@@ -539,6 +543,11 @@ function DragAndDropTemplates(configuration) {
         var formatNumber = function(n) { return n.toFixed(4).replace(/\.?0+$/, ''); };
         var is_graded = ctx.graded && ctx.weighted_max_score > 0;
         var progress_template;
+        var show_graded = ctx.show_graded;
+        if (!show_graded) {
+            return h('div', '');
+        }
+
         if (ctx.grade !== null && ctx.weighted_max_score > 0) {
             if (is_graded) {
                 progress_template = ngettext(
@@ -1837,6 +1846,8 @@ function DragAndDropBlock(runtime, element, configuration) {
             display_zone_borders: configuration.display_zone_borders,
             zones: configuration.zones,
             items: items,
+            show_attempts: configuration.show_attempts,
+            show_graded: configuration.show_graded,
             // state - parts that can change:
             attempts: state.attempts,
             grade: state.grade,

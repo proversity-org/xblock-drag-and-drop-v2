@@ -196,6 +196,19 @@ class DragAndDropBlock(
         enforce_type=True,
     )
 
+    show_attempts = Boolean(
+        display_name="Show attempts",
+        help="This will show or not the attempts for the problem.",
+        scope=Scope.settings,
+        default=True
+    )
+    show_graded = Boolean(
+        display_name="Show graded",
+        help="This will show or not the grading for the problem.",
+        scope=Scope.settings,
+        default=True
+    )
+
     block_settings_key = 'drag-and-drop-v2'
 
     def max_score(self):  # pylint: disable=no-self-use
@@ -326,6 +339,8 @@ class DragAndDropBlock(
             "target_img_description": self.target_img_description,
             "item_background_color": self.item_background_color or None,
             "item_text_color": self.item_text_color or None,
+            "show_attempts": this.show_attempts,
+            "show_graded": this.show_graded
             # final feedback (data.feedback.finish) is not included - it may give away answers.
         }
 
