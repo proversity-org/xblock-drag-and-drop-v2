@@ -22,14 +22,14 @@
                       <span class="sr">{% trans fields.show_title.help %}</span>
                     </label>
 
-                    <label class="checkbox-label" title="{% fields.show_attempts.help %}">
+                    <label class="checkbox-label" title="{{ fields.show_attempts.help }}">
                       <input class="show-attempts" type="checkbox"
                         {% if self.show_attempts %}checked="checked"{% endif %}>
                       {{ fields.show_attempts.display_name }}
                       <span class="sr">{{ fields.show_attempts.help }}</span>
                     </label>
 
-                    <label class="checkbox-label" title="{% fields.show_graded.help %}">
+                    <label class="checkbox-label" title="{{ fields.show_graded.help }}">
                       <input class="show-graded" type="checkbox"
                         {% if self.show_graded %}checked="checked"{% endif %}>
                       {{ fields.show_graded.display_name }}
